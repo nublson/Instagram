@@ -1,16 +1,13 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 
+import Header from "./components/Header";
 import Routes from "./routes";
 
 function App() {
     return (
-        /*  
-        O BrowserRouter <Router> que usa a API do histórico HTML5 
-        (pushState, replaceState e o evento popstate) para 
-        manter sua interface do usuário sincronizada com as Routes criadas.
-        */
         <BrowserRouter>
+            <Header />
             <Routes />
         </BrowserRouter>
     );
