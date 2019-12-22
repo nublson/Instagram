@@ -1,14 +1,32 @@
 section#post-list {
     width: 100%;
-    max-width: 58rem;
+    max-width: 61.4rem;
     margin: 0 auto;
     padding: 0 3rem;
+    position: relative;
+    height: 100vh;
+}
+
+.message {
+    font-size: 1.6rem;
+    color: #666;
+    text-transform: uppercase;
+    text-align: center;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 section#post-list article {
     background-color: #fff;
     border: 0.1rem solid #ddd;
     margin-top: 3rem;
+}
+
+section#post-list article:last-child {
+    margin-bottom: 8rem;
 }
 
 section#post-list article header {
@@ -58,6 +76,6 @@ section#post-list article footer p {
 }
 
 section#post-list article footer span {
-    color: #5986c1;
+    color: #1874b1;
     display: block;
 }

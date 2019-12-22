@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+import api from "../services/api";
 
 import "./Feed.css";
 
@@ -8,101 +10,55 @@ import comment from "../assets/comment.svg";
 import send from "../assets/send.svg";
 
 const Feed = () => {
+    const [feed, setFeed] = useState([]);
+
+    useEffect(() => {
+        async function getData() {
+            const response = await api.get("posts");
+
+            setFeed(response.data);
+        }
+
+        getData();
+    });
+
     return (
         <section id="post-list">
-            <article>
-                <header>
-                    <div className="user-info">
-                        <span>Nubelson Fernandes</span>
-                        <span className="place">Porto</span>
-                    </div>
+            {feed.length === 0 ? (
+                <p className="message">
+                    Empty. <br /> Please create a post.
+                </p>
+            ) : (
+                feed.map(post => (
+                    <article>
+                        <header>
+                            <div className="user-info">
+                                <span>{post.author}</span>
+                                <span className="place">{post.place}</span>
+                            </div>
 
-                    <img src={more} alt="Mais" />
-                </header>
-                <img
-                    src="http://localhost:3333/files/roman-synkevych-vXInUOv1n84-unsplash.jpg"
-                    alt="Post"
-                />
+                            <img src={more} alt="Mais" />
+                        </header>
+                        <img
+                            src={`http://localhost:3333/files/${post.image}`}
+                            alt="Post"
+                        />
 
-                <footer>
-                    <div className="actions">
-                        <img src={like} alt="Like" />
-                        <img src={comment} alt="Comment" />
-                        <img src={send} alt="Send" />
-                    </div>
+                        <footer>
+                            <div className="actions">
+                                <img src={like} alt="Like" />
+                                <img src={comment} alt="Comment" />
+                                <img src={send} alt="Send" />
+                            </div>
 
-                    <strong>900 likes</strong>
-                    <p>
-                        Roadmap for a All Developer!{" "}
-                        <span>
-                            #self-taugth #buildupdevs #selflearning
-                            #fullstackdeveloper
-                        </span>
-                    </p>
-                </footer>
-            </article>
-            <article>
-                <header>
-                    <div className="user-info">
-                        <span>Nubelson Fernandes</span>
-                        <span className="place">Porto</span>
-                    </div>
-
-                    <img src={more} alt="Mais" />
-                </header>
-                <img
-                    src="http://localhost:3333/files/roman-synkevych-vXInUOv1n84-unsplash.jpg"
-                    alt="Post"
-                />
-
-                <footer>
-                    <div className="actions">
-                        <img src={like} alt="Like" />
-                        <img src={comment} alt="Comment" />
-                        <img src={send} alt="Send" />
-                    </div>
-
-                    <strong>900 likes</strong>
-                    <p>
-                        Roadmap for a All Developer!{" "}
-                        <span>
-                            #self-taugth #buildupdevs #selflearning
-                            #fullstackdeveloper
-                        </span>
-                    </p>
-                </footer>
-            </article>
-            <article>
-                <header>
-                    <div className="user-info">
-                        <span>Nubelson Fernandes</span>
-                        <span className="place">Porto</span>
-                    </div>
-
-                    <img src={more} alt="Mais" />
-                </header>
-                <img
-                    src="http://localhost:3333/files/roman-synkevych-vXInUOv1n84-unsplash.jpg"
-                    alt="Post"
-                />
-
-                <footer>
-                    <div className="actions">
-                        <img src={like} alt="Like" />
-                        <img src={comment} alt="Comment" />
-                        <img src={send} alt="Send" />
-                    </div>
-
-                    <strong>900 likes</strong>
-                    <p>
-                        Roadmap for a All Developer!{" "}
-                        <span>
-                            #self-taugth #buildupdevs #selflearning
-                            #fullstackdeveloper
-                        </span>
-                    </p>
-                </footer>
-            </article>
+                            <strong>{post.likes} likes</strong>
+                            <p>
+                                {post.description} <span>{post.hashtags}</span>
+                            </p>
+                        </footer>
+                    </article>
+                ))
+            )}
         </section>
     );
 };
