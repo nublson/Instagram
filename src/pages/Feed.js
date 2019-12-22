@@ -20,7 +20,7 @@ const Feed = () => {
         }
 
         getData();
-    });
+    }, []);
 
     return (
         <section id="post-list">
