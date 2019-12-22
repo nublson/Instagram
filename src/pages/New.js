@@ -1,9 +1,14 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
+
+import api from "../services/api";
 
 import "./New.css";
 
 const New = () => {
+    const history = useHistory();
+
     return (
         <Formik
             initialValues={{
@@ -14,7 +19,16 @@ const New = () => {
                 hashtags: ""
             }}
             onSubmit={async values => {
-                console.log(values);
+                const data = new FormData();
+                data.append("image", values.image);
+                data.append("author", values.author);
+                data.append("place", values.place);
+                data.append("description", values.description);
+                data.append("hashtags", values.hashtags);
+
+                await api.post("/posts", data);
+
+                history.push("/");
             }}
         >
             {props => (
