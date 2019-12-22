@@ -19,6 +19,10 @@ section#post-list {
     transform: translate(-50%, -50%);
 }
 
+.message .link {
+    color: #666;
+}
+
 section#post-list article {
     background-color: #fff;
     border: 0.1rem solid #ddd;

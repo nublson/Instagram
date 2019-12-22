@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import io from "socket.io-client";
 
 import api from "../services/api";
 
@@ -12,7 +14,23 @@ import send from "../assets/send.svg";
 const Feed = () => {
     const [feed, setFeed] = useState([]);
 
+    const registerToSocket = () => {
+        const socket = io("http://localhost:3333");
+
+        socket.on("post", newPost => {
+            setFeed([newPost, ...feed]);
+        });
+
+        socket.on("like", likedPost => {
+            setFeed([
+                feed.map(post => (post._id === likedPost.id ? likedPost : post))
+            ]);
+        });
+    };
+
     useEffect(() => {
+        registerToSocket();
+
         async function getData() {
             const response = await api.get("posts");
 
@@ -20,7 +38,7 @@ const Feed = () => {
         }
 
         getData();
-    }, []);
+    }, [feed, registerToSocket]);
 
     const handleLike = id => {
         api.post(`/posts/${id}/like`);
@@ -30,7 +48,11 @@ const Feed = () => {
         <section id="post-list">
             {feed.length === 0 ? (
                 <p className="message">
-                    Empty. <br /> Please create a post.
+                    Empty. <br /> Please{" "}
+                    <Link className="link" to="/new">
+                        create a post
+                    </Link>
+                    .
                 </p>
             ) : (
                 feed.map(post => (
