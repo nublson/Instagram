@@ -54,7 +54,11 @@ const Feed = () => {
                                     type="button"
                                     onClick={() => handleLike(post._id)}
                                 >
-                                    <img src={like} alt="Like" />
+                                    <img
+                                        src={like}
+                                        alt="Like"
+                                        className="like"
+                                    />
                                 </button>
                                 <img src={comment} alt="Comment" />
                                 <img src={send} alt="Send" />
@@ -62,6 +66,7 @@ const Feed = () => {
 
                             <strong>{post.likes} likes</strong>
                             <p>
+                                <span className="author">{post.author}</span>{" "}
                                 {post.description} <span>{post.hashtags}</span>
                             </p>
                         </footer>
