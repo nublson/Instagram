@@ -78,4 +78,5 @@ section#post-list article footer p {
 section#post-list article footer span {
     color: #1874b1;
     display: block;
+    margin-top: 2rem;
 }
