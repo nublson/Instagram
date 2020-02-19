@@ -1,6 +1,6 @@
 # Instagram Clone (Frontend w/ React.js)
 
-![Instagram Clone Preview](./src/img/preview.png)
+![Instagram Clone Preview](./instagram.png)
 
 This is the clone of Instagram, a simple web application made with [React.js](https://reactjs.org/) that allows us to upload photos with the ability to like.
 
